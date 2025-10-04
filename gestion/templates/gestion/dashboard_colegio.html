@@ -1,0 +1,153 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard: {{ colegio.nombre }}{% endblock %}
+
+{% block content %}
+<div class="text-center mb-4">
+    <div class="d-flex justify-content-center align-items-center mb-3 gap-3">
+        <a href="{% url 'subir_archivo' id_colegio=colegio.id_colegio %}" class="btn btn-lg btn-success">
+            <i class="fas fa-upload me-2"></i> Cargar o Actualizar Datos (CSV)
+        </a>
+        <a href="{% url 'logout_colegio' %}" class="btn btn-lg btn-danger">
+            <i class="fas fa-sign-out-alt me-2"></i> Cerrar Sesión
+        </a>
+    </div>
+    <h2 class="text-white">Análisis de Deserción Escolar</h2>
+    <h3 class="text-white-50 fw-normal">{{ colegio.nombre }}</h3>
+    <p class="text-white">Total de estudiantes analizados: <strong>{{ total_estudiantes }}</strong></p>
+</div>
+
+<div class="row gy-4">
+    <!-- Gráfico de Tendencia de Deserción -->
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">¿Cuál es la tendencia de ausentismo mensual?</h5>
+                <canvas id="desercionChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Gráfico de Género (Demográfico) -->
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">¿Cuál es la distribución por género?</h5>
+                <canvas id="generoChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Gráfico de Grado (Demográfico) -->
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">¿Cómo se distribuyen los estudiantes por grado?</h5>
+                <canvas id="gradoChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Gráfico de Edad (Demográfico) -->
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">¿Cuál es el rango de edad de los estudiantes?</h5>
+                <canvas id="edadChart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    // Datos pasados desde Django
+    const chartData = {{ chart_data|safe }};
+
+    // Función para crear un gráfico
+    function createBarChart(ctx, type, labels, data, label) {
+        new Chart(ctx, {
+            type: type,
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: label,
+                    data: data,
+                    backgroundColor: [
+                        'rgba(54, 162, 235, 0.6)',
+                        'rgba(255, 99, 132, 0.6)',
+                        'rgba(255, 206, 86, 0.6)',
+                        'rgba(75, 192, 192, 0.6)',
+                        'rgba(153, 102, 255, 0.6)',
+                    ],
+                    borderColor: [
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    }
+                }
+            }
+        });
+    }
+
+    // Crear Gráfico de Género
+    const generoCtx = document.getElementById('generoChart').getContext('2d');
+    if (chartData.genero_labels.length > 0) {
+        createBarChart(generoCtx, 'bar', chartData.genero_labels, chartData.genero_values, 'Nº de Estudiantes');
+    }
+
+    // Crear Gráfico de Grado
+    const gradoCtx = document.getElementById('gradoChart').getContext('2d');
+    if (chartData.grado_labels.length > 0) {
+        createBarChart(gradoCtx, 'bar', chartData.grado_labels, chartData.grado_values, 'Nº de Estudiantes');
+    }
+
+    // Crear Gráfico de Edad
+    const edadCtx = document.getElementById('edadChart').getContext('2d');
+    if (chartData.edad_labels.length > 0) {
+        createBarChart(edadCtx, 'bar', chartData.edad_labels, chartData.edad_values, 'Nº de Estudiantes');
+    }
+
+    // Crear Gráfico de Deserción (Líneas)
+    const desercionCtx = document.getElementById('desercionChart').getContext('2d');
+    if (chartData.desercion_labels.length > 0) {
+        new Chart(desercionCtx, {
+            type: 'line',
+            data: {
+                labels: chartData.desercion_labels,
+                datasets: [{
+                    label: 'Nº de Ausencias',
+                    data: chartData.desercion_values,
+                    fill: false,
+                    borderColor: 'rgb(255, 99, 132)',
+                    tension: 0.1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { position: 'top' }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    }
+});
+</script>
+
+{% endblock %}

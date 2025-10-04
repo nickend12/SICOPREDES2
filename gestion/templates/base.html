@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}SICROPEDES{% endblock %}</title>
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            /* URL de la imagen de fondo. ¡Puedes cambiarla! */
+            background-image: url('https://cloudfront-us-east-1.images.arcpublishing.com/infobae/GSCE72MLGVCV3BKNGIIOKA662Y.jpg');
+            background-size: cover; /* Para que la imagen cubra todo el fondo htt*/
+            background-position: center; /* Centra la imagen */
+            background-attachment: fixed; /* La imagen de fondo no se desplaza con el scroll */
+        }
+        .btn-custom {
+            background-color: #007bff; /* Un azul brillante que resalta */
+            border-color: #007bff;
+            color: #ffffff;
+        }
+        .btn-custom:hover {
+            background-color: #0056b3; /* Un azul un poco más oscuro para el hover */
+            border-color: #0056b3;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-dark mb-4" style="background-color: #003366;">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#">
+                <!-- Opcional: Puedes agregar un logo aquí -->
+                <!-- <img src="path/to/your/logo.png" alt="Logo" width="30" height="24" class="d-inline-block align-text-top"> -->
+                SICROPEDES
+            </a>
+        </div>
+    </nav>
+
+    <!-- Contenido principal -->
+    <main class="container mt-4">
+        {% block content %}{% endblock %}
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</body>
+</html>

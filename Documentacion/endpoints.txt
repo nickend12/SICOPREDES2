@@ -1,0 +1,6 @@
+http://127.0.0.1:8000/gestion/registro/ - Formulario de registro de nuevo colegio
+http://127.0.0.1:8000/gestion/login/ - Inicio de sesión para usuarios registrados
+http://127.0.0.1:8000/gestion/logout/ - Cerrar sesión del usuario actual
+http://127.0.0.1:8000/gestion/colegio/<id_colegio>/dashboard/ - Panel de control del colegio con estadísticas
+http://127.0.0.1:8000/gestion/colegio/<id_colegio>/subir-archivo/ - Subir archivo CSV con datos de asistencia
+http://127.0.0.1:8000/admin/ - Panel de administración de Django (solo superusuarios)

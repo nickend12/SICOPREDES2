@@ -1,0 +1,20 @@
+# Entorno virtual
+venv/
+.venv
+
+# Archivos de compilación Python
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+
+# Migraciones compiladas
+*/migrations/__pycache__/
+
+# Archivos de configuración sensibles
+.env
+*.log
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db

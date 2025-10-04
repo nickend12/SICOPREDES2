@@ -1,0 +1,31 @@
+EXPLICACIÓN DE TABLAS CREADAS EN LA BASE DE DATOS
+================================================
+
+TABLAS DE DJANGO (Sistema interno):
+-----------------------------------
+🔐 auth_user                    → Usuarios del sistema (tabla base de Django)
+🔐 auth_group                   → Grupos de usuarios (ej: Administradores, Profesores)
+🔐 auth_permission              → Permisos del sistema (crear, editar, eliminar)
+🔐 auth_group_permissions       → Qué permisos tiene cada grupo
+🔐 auth_user_groups             → Qué usuarios pertenecen a qué grupos
+🔐 auth_user_user_permissions   → Permisos específicos de cada usuario
+
+📊 django_admin_log             → Registro de acciones en el panel de administración
+📋 django_content_type          → Tipos de contenido del sistema
+🔄 django_migrations            → Control de migraciones aplicadas
+🍪 django_session               → Sesiones de usuarios (mantener login activo)
+
+TABLAS DE TU APLICACIÓN (gestion):
+----------------------------------
+👤 gestion_usuario              → Usuarios personalizados de tu sistema
+🏫 gestion_colegio              → Información de colegios/instituciones
+👨‍🎓 gestion_estudiante            → Datos de estudiantes
+📚 gestion_asistencia           → Registro de asistencia de estudiantes
+
+FUNCIONALIDAD:
+==============
+- Los usuarios se registran y hacen login
+- El sistema controla quién puede hacer qué (permisos)
+- Se registra la asistencia de estudiantes
+- Se almacena información de colegios y estudiantes
+- Todo está conectado para analizar la deserción estudiantil

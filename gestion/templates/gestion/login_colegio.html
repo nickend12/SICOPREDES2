@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block title %}Inicio de Sesión - Instituciones{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-7">
+            <div class="card shadow-lg border-0 rounded-lg">
+                <div class="card-header bg-primary text-white text-center">
+                    <h3 class="fw-bold my-4">Acceso para Instituciones</h3>
+                </div>
+                <div class="card-body p-5">
+                    
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                                {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+
+                    <form method="post">
+                        {% csrf_token %}
+
+                        <div class="form-floating mb-3">
+                            {% render_field form.username class="form-control" placeholder="Nombre o Código DANE" %}
+                            <label for="{{ form.username.id_for_label }}">Nombre de la Institución o Código DANE</label>
+                        </div>
+
+                        <div class="form-floating mb-4">
+                            {% render_field form.password class="form-control" placeholder="Contraseña" %}
+                            <label for="{{ form.password.id_for_label }}">Contraseña</label>
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg">Iniciar Sesión</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-footer text-center py-3">
+                    <div class="small">¿No tienes una cuenta? <a href="{% url 'registro_colegio' %}">Regístrate aquí</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

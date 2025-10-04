@@ -1,0 +1,54 @@
+PASOS ESENCIALES PARA EJECUTAR EL PROYECTO DJANGO - APLICACIÓN DESERCIÓN
+================================================================================
+REQUISITOS PREVIOS:
+- Python 3.8+ instalado
+- PostgreSQL instalado y ejecutándose
+- Base de datos 'desercion_db' creada en PostgreSQL
+
+PASOS DE CONFIGURACIÓN:
+================================================================================
+
+0. VERIFICAR INSTALACIÓN DE PYTHON
+----------------------------------
+python --version
+pip --version
+
+1. CREAR ENTORNO VIRTUAL
+------------------------
+python -m venv venv
+venv\Scripts\activate
+
+2. INSTALAR DEPENDENCIAS
+------------------------
+pip install -r requirements.txt
+
+ALTERNATIVAS SI 'pip' NO SE RECONOCE:
+python -m pip install -r requirements.txt
+
+O instalación manual:
+python -m pip install Django==5.2.5
+python -m pip install django-widget-tweaks
+python -m pip install psycopg2-binary
+python -m pip install python-dotenv
+
+3. CONFIGURAR VARIABLES DE ENTORNO (OPCIONAL)
+
+4. VERIFICAR CONEXIÓN A BASE DE DATOS
+-------------------------------------
+python manage.py dbshell
+(Si se conecta correctamente, salir con \q)
+
+5. CREAR Y APLICAR MIGRACIONES
+------------------------------
+python manage.py makemigrations
+python manage.py makemigrations gestion
+python manage.py migrate
+
+
+7. RECOPILAR ARCHIVOS ESTÁTICOS
+-------------------------------
+python manage.py collectstatic --noinput
+
+8. EJECUTAR SERVIDOR DE DESARROLLO
+----------------------------------
+python manage.py runserver

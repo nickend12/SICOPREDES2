@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block title %}Registro de Institución Educativa{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-8">
+            <div class="card shadow-lg border-0 rounded-lg">
+                <div class="card-header bg-primary text-white text-center">
+                    <h3 class="fw-bold my-4">Registro de Institución Educativa</h3>
+                </div>
+                <div class="card-body p-5">
+                    <form method="post">
+                        {% csrf_token %}
+
+                        {% if form.non_field_errors %}
+                            <div class="alert alert-danger">
+                                {% for error in form.non_field_errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+
+                        <div class="form-floating mb-3">
+                            {% render_field form.nombre class="form-control" placeholder="Nombre de la Institución" %}
+                            <label for="{{ form.nombre.id_for_label }}">Nombre de la Institución</label>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            {% render_field form.codigo_dane class="form-control" placeholder="Código DANE" %}
+                            <label for="{{ form.codigo_dane.id_for_label }}">Código DANE</label>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            {% render_field form.ubicacion class="form-control" placeholder="Ubicación" %}
+                            <label for="{{ form.ubicacion.id_for_label }}">Ubicación (Ciudad, Departamento)</label>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            {% render_field form.email class="form-control" placeholder="Correo Electrónico" %}
+                            <label for="{{ form.email.id_for_label }}">Correo Electrónico de Contacto</label>
+                        </div>
+
+                        <div class="form-floating mb-4">
+                            {% render_field form.password class="form-control" placeholder="Contraseña" %}
+                            <label for="{{ form.password.id_for_label }}">Contraseña</label>
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg">Registrar Institución</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-footer text-center py-3">
+                    <div class="small">¿Ya tienes una cuenta? <a href="{% url 'login_colegio' %}">Inicia sesión aquí</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
